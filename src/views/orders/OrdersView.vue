@@ -5,7 +5,7 @@
         <div v-if="user">
             <div style="display:flex;justify-content: space-between;margin-bottom:10px;">
                 <h2>Orders</h2>
-                <button class="btn backgroundGreen">
+                <button class="btn backgroundGreen" @click="goToServices()">
                     Add New Order
                 </button>
             </div>
@@ -13,17 +13,17 @@
                 <thead>
                     <tr>
                         <th>Order Date</th>
-                        <th>Details</th>
-                        <th>Price</th>
                         <th>Pick Up Date</th>
+                        <th>Order Total</th>
+                        <th>View</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ formattedDate("2023-12-11T10:30:25")  }}</td>
-                        <td>Pants shortance</td>
-                        <th>$20.00</th>
-                        <td>{{ formattedDate("2024-01-09T10:30:25") }}</td>
+                    <tr v-for="(order, index) in orders" :key="index">
+                        <td>{{ (order.orderDate.toDate()).toDateString()  }}</td>
+                        <td>{{ (order.pickupDate.toDate()).toDateString() }}</td>
+                        <th>{{ order.orderTotal }}</th>
+                        <th></th>
                     </tr>
                 </tbody>
             </table>
@@ -38,24 +38,24 @@
 
 <script>
 import getUser from '@/composables/getUser'
-import getCollection from '@/composables/getCollection';
+import getOrders from '@/composables/getOrders';
+import { useRoute } from 'vue-router';
 
-import { ref } from 'vue'
 export default {
     name: 'OrdersView',
     setup() {
-        const requiredCustomer = ref('')
-        const { error } = getCollection('customers')
         const { user } = getUser()
+        const { params } = useRoute();
         
-        return { error, user, requiredCustomer } 
+        const { error, orders } = getOrders('orders', params.customerID)
+
+
+        return { error, user, orders } 
     },
     methods: {
-        formattedDate(dtmDate) {
-            const date = new Date(dtmDate)
-            const options = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true }
-            return date.toLocaleString('en-US', options)
-        }
+        goToServices(){
+            this.$router.push({name: 'Services'})
+        },
     }
 }
 </script>

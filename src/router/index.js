@@ -4,6 +4,7 @@ import LoginView from '@/views/auth/LoginView.vue'
 import SignupView from '@/views/auth/SignupView.vue'
 import CreateCustomer from '@/views/customers/CreateCustomer.vue'
 import OrdersView from '@/views/orders/OrdersView.vue'
+import ServicesView from '@/views/orders/ServicesView.vue'
 
 const routes = [
   {
@@ -30,6 +31,12 @@ const routes = [
     path: '/orders/:customerID?',
     name: 'Orders',
     component: OrdersView
+  },
+  {
+    path: '/services',
+    name: 'Services',
+    component: ServicesView 
+
   }
 ]
 

@@ -1,27 +1,32 @@
 import { ref, watchEffect } from "vue";
 import { projectFirestore } from "../firebase/config";
 
-const getCollection = (collection) => {
-    const documents = ref(null);
+const getOrders = (collection, filterOption = null) => {
+    const orders = ref(null);
     const error = ref(null);
 
     // register the firestore collection reference
-    let collectionRef = projectFirestore.collection(collection).orderBy("createdAt", "desc");
-    
+    let collectionRef = projectFirestore.collection(collection);
+
     const unsub = collectionRef.onSnapshot(
         (snap) => {
             let results = [];
             snap.docs.forEach((doc) => {
                 // must wait for the server to create the timestamp & send it back
-                doc.data().createdAt && results.push({ ...doc.data(), id: doc.id });
+                doc.data() && results.push({ ...doc.data(), id: doc.id });
             });
-            
-            documents.value = results;
+
+            if(filterOption){
+                results = results.filter((o) => o.customerID === filterOption)
+            }
+
+            // update values
+            orders.value = results;
             error.value = null;
         },
         (err) => {
             console.log(err.message);
-            documents.value = null;
+            orders.value = null;
             error.value = "could not fetch the data";
         }
     );
@@ -30,7 +35,7 @@ const getCollection = (collection) => {
         onInvalidate(() => unsub());
     });
 
-    return { error, documents };
+    return { error, orders };
 };
 
-export default getCollection;
+export default getOrders;
