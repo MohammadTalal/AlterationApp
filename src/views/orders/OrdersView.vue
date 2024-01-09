@@ -20,10 +20,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ new Date()  }}</td>
+                        <td>{{ formattedDate("2023-12-11T10:30:25")  }}</td>
                         <td>Pants shortance</td>
                         <th>$20.00</th>
-                        <td>{{ new Date() }}</td>
+                        <td>{{ formattedDate("2024-01-09T10:30:25") }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -47,8 +47,16 @@ export default {
         const requiredCustomer = ref('')
         const { error } = getCollection('customers')
         const { user } = getUser()
+        
         return { error, user, requiredCustomer } 
     },
+    methods: {
+        formattedDate(dtmDate) {
+            const date = new Date(dtmDate)
+            const options = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true }
+            return date.toLocaleString('en-US', options)
+        }
+    }
 }
 </script>
 
