@@ -7,7 +7,6 @@
                 <h2>Orders</h2>
                 <button class="btn backgroundGreen" @click="goToServices()">
                     New Order
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                 </button>
             </div>
             <table style="width:100%">
