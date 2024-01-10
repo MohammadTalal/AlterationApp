@@ -6,7 +6,8 @@
             <div style="display:flex;justify-content: space-between;margin-bottom:10px;">
                 <h2>Orders</h2>
                 <button class="btn backgroundGreen" @click="goToServices()">
-                    Add New Order
+                    New Order
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                 </button>
             </div>
             <table style="width:100%">

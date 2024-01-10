@@ -43,7 +43,9 @@ button:disabled {
     background: var(--secondary);
     cursor: not-allowed;
 }
-
+.icon:hover {
+    color: white !important;
+}
 /* forms */
 form {
     max-width: 400px;

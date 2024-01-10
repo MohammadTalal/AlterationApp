@@ -4,7 +4,8 @@
         <div v-if="documents && user">
             <div class="searchBox">
                 <button class="btn" @click="createNewCustomer()">
-                    Add New Customer
+                    New Customer
+                    <font-awesome-icon icon="fa-solid fa-user-plus" />
                 </button>
                 <input type="text" name="search" id="search" placeholder="Search for Customer By Phone Number..." maxlength="10" v-model="requiredCustomer"> 
             </div>
@@ -53,6 +54,7 @@ export default {
 
 <style scoped>
 @import "@/assets/main.css";
+
 .btn {
     width: 15%;
     height: 40px;

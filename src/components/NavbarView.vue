@@ -7,11 +7,20 @@
             <div class="links">
                 <div v-if="user">
                     <span>Logged in as  <span class="bold">{{ user.displayName }}</span></span>
-                    <button @click="handleClick">Logout</button>
+                    <button @click="handleClick">
+                        Logout
+                        <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+                    </button>
                 </div>
                 <div v-else>
-                    <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
-                    <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
+                    <router-link class="btn" :to="{ name: 'Signup' }">
+                        Sign up
+                        <font-awesome-icon icon="fa-solid fa-user-plus" />
+                    </router-link>
+                    <router-link class="btn" :to="{ name: 'Login' }">
+                        Log in
+                        <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+                    </router-link>
                 </div>
             </div>
         </nav>
