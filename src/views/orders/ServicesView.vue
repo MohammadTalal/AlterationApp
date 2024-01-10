@@ -14,7 +14,7 @@
                             ${{ Number(service.servicePrice).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
                         </div>
                         <button>
-                            +
+                            <font-awesome-icon icon="plus" />
                         </button>
                     </div>
                 </div>
