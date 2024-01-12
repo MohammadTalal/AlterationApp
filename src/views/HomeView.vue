@@ -12,7 +12,11 @@
         </div>
         <div v-if="!user">
             <h2 class="text-center">You are not logged in.</h2>
-            <h2 class="text-center"><router-link to="/login">Log in</router-link></h2>
+            <h2 class="text-center">
+                <router-link :to="{ name: 'Login' }">
+                    Log in
+                </router-link>
+            </h2>
         </div>
 
     </div>
