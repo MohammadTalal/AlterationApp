@@ -6,10 +6,14 @@
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
-  transpileDependencies: [
-    'vuetify' // or other dependencies you need to transpile
-  ],
+  transpileDependencies: true,
   configureWebpack: {
-    devtool: 'source-map'
-  }
+    devtool: 'source-map',
+    performance: {
+			hints: false,
+			maxEntrypointSize: 512000,
+			maxAssetSize: 512000,
+		},
+  },
+  
 };
