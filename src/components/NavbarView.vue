@@ -8,16 +8,17 @@
                 <div v-if="user">
                     <span>Logged in as  <span class="bold">{{ user.displayName }}</span></span>
                     <button @click="handleClick">
-                        <font-awesome-icon icon="right-to-bracket" />
+                        <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
                         Logout
                     </button>
                 </div>
                 <div v-else>
                     <router-link class="btn" :to="{ name: 'Signup' }">
+                        <font-awesome-icon icon="fa-solid fa-user-plus" />
                         Sign up
                     </router-link>
                     <router-link class="btn" :to="{ name: 'Login' }">
-                        <font-awesome-icon icon="right-to-bracket" />
+                        <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
                         Log in
                     </router-link>
                 </div>
@@ -75,4 +76,7 @@ nav img {
 .bold {
     font-weight: 800 !important;
 }
+button:hover .fa-right-from-bracket {
+    color: white;
+  }
 </style>

@@ -1,6 +1,9 @@
 <template>
     <div>
-        <button @click="openModal" style="margin-left:10px">Add New Service</button>
+        <button @click="openModal" >
+            <font-awesome-icon icon="fa-solid fa-shirt" />
+            Add New Service
+        </button>
         <div v-if="isModalOpen" class="modal-overlay">
             <div class="modal">
                 <form @submit.prevent="handleSubmit">
@@ -68,9 +71,6 @@ export default {
 <style scoped>
 form {
     background: white;
-}
-button {
-    margin-top: 20px;
 }
 
 .modal-overlay {
