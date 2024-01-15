@@ -2,11 +2,13 @@
     <div class="home">
         <div v-if="error" class="error">Could not fetch the data</div>
         <div v-if="documents && user">
-            <div class="searchBox">
-                <button class="btn" @click="createNewCustomer()">
-                    New Customer
-                </button>
-                <input type="text" name="search" id="search" placeholder="Search for Customer By Phone Number..." maxlength="10" v-model="requiredCustomer"> 
+            <div class="subwrapper">
+                <div class="searchBox">
+                    <input type="text" name="search" id="search" placeholder="Search for Customer By Phone Number..." maxlength="10" v-model="requiredCustomer"> 
+                    <button class="btn" @click="createNewCustomer()">
+                        New Customer
+                    </button>
+                </div>
             </div>
             <CustomerList :customers="documents"/>
         </div>
@@ -66,17 +68,25 @@ export default {
 .backgroundGreen {
     background: green;
 }
+.subwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+}
 .searchBox {
-    width: 100%;
-    margin: auto 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }
 .searchBox input {
     font-size: 1.2rem;
     float: left;
-    width: 60%;
     height: 50px;
-    margin: 0 auto !important;
+    margin: 0 !important;
     border-radius: 5px !important;
+    width: 85%;
 }
 a {
     text-decoration: underline;

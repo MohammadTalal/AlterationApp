@@ -50,7 +50,7 @@ export default {
 <style scoped>
 .navbar {
     padding: 16px 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     background: white;
 }
 nav {

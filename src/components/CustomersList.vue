@@ -1,5 +1,5 @@
 <template>
-    <div v-for="customer in customers" :key="customer.id" @click="goToOrders(customer.phoneNumber)">
+    <div v-for="customer in customers" :key="customer.id" @click="goToOrders(customer.phoneNumber)" class="wrapper">
         <div class="single">
             <div class="thumbnail">
                 <img src="../assets/user.png" alt="Customer Icon">
@@ -33,14 +33,20 @@ export default {
 
 <style scoped>
 
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+}
 .single {
     display: flex;
     align-items: center;
-    padding: 20px;
     border-radius: 10px;
     background: white;
-    margin: 16px 0;
+    margin: 5px 0;
     transition: all ease 0.2s;
+    width: 80%;
 }
 .single:hover {
     box-shadow: 1px 2px 3px rgba(50, 50, 50, 0.05);
@@ -64,6 +70,7 @@ export default {
 }
 .order-number {
     margin-left: auto;
+    padding-right: 20px;
 }
 .bold {
     font-weight: 600 !important;
