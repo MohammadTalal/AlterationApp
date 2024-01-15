@@ -8,6 +8,7 @@
                 <div v-if="user">
                     <span>Logged in as  <span class="bold">{{ user.displayName }}</span></span>
                     <button @click="handleClick">
+                        <font-awesome-icon icon="right-to-bracket" />
                         Logout
                     </button>
                 </div>
@@ -16,6 +17,7 @@
                         Sign up
                     </router-link>
                     <router-link class="btn" :to="{ name: 'Login' }">
+                        <font-awesome-icon icon="right-to-bracket" />
                         Log in
                     </router-link>
                 </div>
