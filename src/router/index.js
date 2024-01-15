@@ -36,7 +36,6 @@ const routes = [
     path: '/services',
     name: 'Services',
     component: ServicesView 
-
   }
 ]
 
