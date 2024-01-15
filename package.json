@@ -12,16 +12,16 @@
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "core-js": "^3.21.1",
     "firebase": "^8.0.0",
+    "npm": "^10.3.0",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
-    "npm": "^10.3.0"
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@types/node": "^17.0.17",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "^5.0.8",
     "sass": "^1.69.7",
-    "sass-loader": "^13.3.3",
-    "@types/node": "^17.0.17"
+    "sass-loader": "^13.3.3"
   }
 }
