@@ -98,6 +98,7 @@ import useCollection from '@/composables/useCollection'
 import { timestamp } from '@/firebase/config'
 import router from '@/router'
 import getOrders from '@/composables/getOrders';
+import getCollection from '@/composables/getCollection';
 
 
 export default {
@@ -105,7 +106,9 @@ export default {
     components: { CreateService },
     setup() {
         const { error, services } = getServices('services')
+        const { documents: customers } = getCollection('customers')
         const { addDoc } = useCollection('orders')
+        const { updateDoc } = useCollection('customers')
         const { orders } = getOrders('orders')
         const { user } = getUser()
         const { params } = useRoute();
@@ -117,6 +120,7 @@ export default {
         const orderTotal = ref(0)
         const orderTax = ref(0)
         const isPending = ref(false)
+        const selectedCustomer = ref({})
 
         const addToCart = (service) => {
             numberOfServices.value += 1
@@ -150,6 +154,19 @@ export default {
                 orderDetails: cartItems.value,
                 tax: orderTax.value
             })
+
+            // Update last visit date for the customer
+            selectedCustomer.value =  customers.value.filter((customer) =>
+                customer.phoneNumber?.includes(params.customerID)
+            )
+            if(selectedCustomer.value){
+                await updateDoc(
+                    selectedCustomer.value[0].id,
+                    {
+                        lastVisitDate: timestamp()
+                    }
+                )
+            }
             isPending.value = false
             
             router.push({name: 'Orders', params: {customerID: params.customerID }})

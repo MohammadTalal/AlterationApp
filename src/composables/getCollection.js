@@ -6,7 +6,7 @@ const getCollection = (collection) => {
     const error = ref(null);
 
     // register the firestore collection reference
-    let collectionRef = projectFirestore.collection(collection).orderBy("createdAt", "desc");
+    let collectionRef = projectFirestore.collection(collection).orderBy("lastVisitDate", "desc");
     
     const unsub = collectionRef.onSnapshot(
         (snap) => {

@@ -56,6 +56,11 @@
                                     ${{ row.servicePrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="text-left bold">Tax</td>
+                                <td>${{ orders[selectedOrderIndex].tax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -86,6 +91,8 @@ export default {
         const { error, orders } = getOrders('orders', params.customerID)
         const isModalOpen = ref(false)
         const orderDetails = ref([])
+        const selectedOrderIndex = ref(0)
+
         const goToServices = async () => {
             router.push({name: 'Services', params: {customerID: params.customerID }})
         }
@@ -93,6 +100,7 @@ export default {
         
         const openModal = (index) => {
             orderDetails.value = orders.value[index].orderDetails;
+            selectedOrderIndex.value = index
             isModalOpen.value = true
         }
 
@@ -108,7 +116,8 @@ export default {
             isModalOpen,
             openModal,
             closeModal,
-            orderDetails
+            orderDetails,
+            selectedOrderIndex
         } 
     },
 }

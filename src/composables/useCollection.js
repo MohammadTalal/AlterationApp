@@ -20,7 +20,23 @@ const useCollection = (collection) => {
         }
     };
 
-    return { error, addDoc, isPending };
+    // update an existing document
+    const updateDoc = async (id, newData) => {
+        error.value = null;
+        isPending.value = true;
+
+        try {
+            const docRef = projectFirestore.collection(collection).doc(id);
+            await docRef.update(newData);
+            isPending.value = false;
+        } catch (err) {
+            console.log(err.message);
+            error.value = "Could not update the document";
+            isPending.value = false;
+        }
+    };
+
+    return { error, addDoc, updateDoc, isPending };
 };
 
 export default useCollection;
