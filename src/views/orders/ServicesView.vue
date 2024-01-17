@@ -142,12 +142,14 @@ export default {
                 serviceAddedFlag.value = false
             }, 500);
             orderTotal.value += service.servicePrice
+            orderTax.value = orderTotal.value * 0.13
         }
 
         const removeFromCart = (index, service) => {
             numberOfServices.value -= 1
             cartItems.value.splice(index, 1)
             orderTotal.value -= service.servicePrice
+            orderTax.value = orderTotal.value * 0.13
         }
         
         const checkout = async () => {
@@ -184,7 +186,6 @@ export default {
         }
 
         const openModal = () => {
-            orderTax.value = orderTotal.value * 0.13
             isModalOpen.value = true
         }
 
