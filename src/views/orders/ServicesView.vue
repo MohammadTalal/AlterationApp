@@ -251,18 +251,23 @@ button.checkout-button.pulsate {
     border: 1px solid #ccc;
     width: 30%;
     height: 70vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
 }
 .modal-footer {
-    margin-top: 10px;
+    margin-top: auto;
+	padding: 0;
+	margin: 0;
 }
 .close-btn {
     background: rgb(255, 121, 121);
     margin-left: 10px;
 }
 .table-wrapper {
-    height: 55vh;
     width: 100%;
-    overflow: auto;
+    flex: 1; /* Take up remaining space */
+    overflow-y: auto;
 
 }
 label {

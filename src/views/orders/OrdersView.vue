@@ -9,7 +9,7 @@
                     New Order
                 </button>
             </div>
-            <table style="width:100%" class="table">
+            <table style="width:100%">
                 <thead>
                     <tr>
                         <th>Order Date</th>
@@ -22,8 +22,12 @@
                     <tr v-for="(order, index) in orders" :key="index">
                         <td>{{ (order.orderDate.toDate()).toDateString()  }}</td>
                         <td>{{ (order.pickupDate.toDate()).toDateString() }}</td>
-                        <th>{{ order.orderTotal }}</th>
-                        <th></th>
+                        <th>${{ order.orderTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</th>
+                        <th>
+                            <button @click="openModal(index)">
+                                <font-awesome-icon icon="fa-solid fa-eye" />
+                            </button>
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -33,6 +37,36 @@
             <h2 class="text-center"><a href="/login">Log in</a></h2>
         </div>
 
+        <div v-if="isModalOpen" class="modal-overlay">
+            <div class="modal">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-left">Service</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(row, index) in orderDetails" :key="index">
+                                <td class="text-left">
+                                    {{ row.serviceName }}
+                                </td>
+                                <td>
+                                    ${{ row.servicePrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="close-btn" @click="closeModal()">
+                        <font-awesome-icon icon="fa-solid fa-xmark" />
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -41,20 +75,41 @@ import getUser from '@/composables/getUser'
 import getOrders from '@/composables/getOrders';
 import { useRoute } from 'vue-router';
 import router from '@/router'
+import { ref } from 'vue'
+
 
 export default {
     name: 'OrdersView',
     setup() {
         const { user } = getUser()
         const { params } = useRoute();
-        
         const { error, orders } = getOrders('orders', params.customerID)
-
+        const isModalOpen = ref(false)
+        const orderDetails = ref([])
         const goToServices = async () => {
             router.push({name: 'Services', params: {customerID: params.customerID }})
         }
 
-        return { error, user, orders, goToServices } 
+        
+        const openModal = (index) => {
+            orderDetails.value = orders.value[index].orderDetails;
+            isModalOpen.value = true
+        }
+
+        const closeModal = () => {
+            isModalOpen.value = false
+        }
+
+        return { 
+            error, 
+            user, 
+            orders, 
+            goToServices,
+            isModalOpen,
+            openModal,
+            closeModal,
+            orderDetails
+        } 
     },
 }
 </script>
@@ -65,11 +120,15 @@ h1, h2, h3, h4, h5,h6{
 	font-family: 'Montserrat', sans-serif !important;
 }
 
-.table {
+
+table {
+    width: 100%;
+    overflow: auto;
     thead {
+        position: sticky;
+        top: 0;
         th {
             vertical-align: middle;
-            line-height: 115%;
             border-bottom: 1px solid #000 !important;
         }
     }
@@ -77,22 +136,60 @@ h1, h2, h3, h4, h5,h6{
 	td {
 		padding: 2px;
 		vertical-align: middle;
-		width: auto;
 		border: 1px solid #bbbbbb;
         text-align: center;
-	}
-	td {
-		textarea {
-			vertical-align: middle;
-			margin: 3px;
-		}
 	}
     tr,
     th,
     td {
-        height: 33px;
+        height: 20px;
         min-height: 38px;
         border: none;
     }
+    tfoot {
+        td {
+            border-top: 1px solid #000 !important;
+        }
+    }
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    height: 50vh;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+}
+.modal-footer {
+    margin-top: auto;
+	padding: 0;
+	margin: 0;
+}
+
+.close-btn {
+    background: rgb(255, 121, 121);
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.table-wrapper {
+    width: 100%;
+    flex: 1; /* Take up remaining space */
+    overflow-y: auto;
 }
 </style>
