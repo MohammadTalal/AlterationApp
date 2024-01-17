@@ -5,7 +5,9 @@
         <div v-if="user">
             <div style="display:flex;justify-content: space-between;margin-bottom:10px;">
                 <h2>Orders</h2>
+                <h2>Customer: {{ selectedCustomer }}</h2>
                 <button class="btn backgroundGreen" @click="goToServices()">
+                    <font-awesome-icon icon="fa-solid fa-plus" />
                     New Order
                 </button>
             </div>
@@ -80,7 +82,9 @@ import getUser from '@/composables/getUser'
 import getOrders from '@/composables/getOrders';
 import { useRoute } from 'vue-router';
 import router from '@/router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import getCollection from '@/composables/getCollection';
+
 
 
 export default {
@@ -92,11 +96,26 @@ export default {
         const isModalOpen = ref(false)
         const orderDetails = ref([])
         const selectedOrderIndex = ref(0)
+        const currentCustomer = ref({})
+
+        const { documents: customers } = getCollection('customers')
+        
+        const selectedCustomer = computed(() => {
+            if (!params.customerID) {
+                return customers.value;
+            }
+            currentCustomer.value =  customers.value?.filter((customer) =>
+                customer.phoneNumber?.includes(params.customerID)
+            )[0];
+            return currentCustomer.value?.name
+        });
+
+
+        
 
         const goToServices = async () => {
             router.push({name: 'Services', params: {customerID: params.customerID }})
         }
-
         
         const openModal = (index) => {
             orderDetails.value = orders.value[index].orderDetails;
@@ -117,7 +136,9 @@ export default {
             openModal,
             closeModal,
             orderDetails,
-            selectedOrderIndex
+            selectedOrderIndex,
+            selectedCustomer
+            
         } 
     },
 }

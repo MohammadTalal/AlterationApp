@@ -40,7 +40,7 @@ export default {
                 enteredBy: user.value.displayName,
                 createdAt: timestamp(), 
                 lastVisitDate: timestamp(),
-                orders: []
+                orderCount: 0
             })
             isPending.value = false
             if(!error.value){

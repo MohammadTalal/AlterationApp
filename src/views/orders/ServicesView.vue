@@ -163,7 +163,8 @@ export default {
                 await updateDoc(
                     selectedCustomer.value[0].id,
                     {
-                        lastVisitDate: timestamp()
+                        lastVisitDate: timestamp(),
+                        orderCount: selectedCustomer.value[0].orderCount +1
                     }
                 )
             }

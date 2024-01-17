@@ -10,7 +10,7 @@
                 <p><span class="bold">Last Visit:</span> {{ (customer.lastVisitDate.toDate()).toDateString() }}</p>
             </div>
             <div class="order-number">
-                <p>{{ customer.orders.length }}</p>
+                <p>{{ customer.orderCount }}</p>
             </div>
         </div>
     </div>
