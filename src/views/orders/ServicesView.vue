@@ -56,12 +56,17 @@
                                     </button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="text-right">Tax</td>
+                                <td>${{ orderTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})  }}</td>
+                                
+                            </tr>
                         </tbody>
                         <tfoot v-if="cartItems.length > 0">
                             <tr>
                                 <td class="bold text-right">Total</td>
                                 <td class="bold" style="color:green;">
-                                    ${{ orderTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                    ${{ (orderTotal + orderTax).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
                                 </td>
                                 <td></td>
                             </tr>
@@ -110,9 +115,8 @@ export default {
         const isModalOpen = ref(false)
         const pickupDate = ref('')
         const orderTotal = ref(0)
+        const orderTax = ref(0)
         const isPending = ref(false)
-
-
 
         const addToCart = (service) => {
             numberOfServices.value += 1
@@ -132,16 +136,19 @@ export default {
         
         const checkout = async () => {
             isPending.value = true
+            // Get Max Order Number
             const maxOrderNumber = orders.value.reduce((maxID, order) => {
                 return order.orderNumber > maxID ? order.orderNumber : maxID;
             }, -1);
+            // Add Order
             await addDoc({
                 customerID: params.customerID,
                 orderDate: timestamp(),
                 orderNumber: maxOrderNumber + 1,
-                orderTotal: orderTotal.value,
+                orderTotal: orderTotal.value + orderTax.value,
                 pickupDate: new Date(pickupDate.value),
-                orderDetails: cartItems.value
+                orderDetails: cartItems.value,
+                tax: orderTax.value
             })
             isPending.value = false
             
@@ -150,6 +157,7 @@ export default {
         }
 
         const openModal = () => {
+            orderTax.value = orderTotal.value * 0.13
             isModalOpen.value = true
         }
 
@@ -171,7 +179,8 @@ export default {
             cartItems,
             checkout,
             pickupDate,
-            orderTotal
+            orderTotal,
+            orderTax
         } 
     },
 
