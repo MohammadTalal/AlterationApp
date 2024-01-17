@@ -35,7 +35,7 @@ button, .btn {
 }
 button:hover, .btn:hover {
     background: var(--primary);
-    color: white;
+    color: white !important;
 }
 button:disabled {
     opacity: 0.5;
@@ -73,7 +73,32 @@ input, textarea {
     font-size: 14px;
     margin: 16px 0;
 }
-
+.bold {
+    font-weight: 600 !important;
+}
 .text-center {
     text-align: center !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border: 0.1em solid #eee;
+    border-radius: 100vw;
+}
+::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 100vw;
+    margin-block: 0.5em;
 }

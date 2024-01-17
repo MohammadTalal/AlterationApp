@@ -5,7 +5,10 @@
         <input type="text" placeholder="Phone Number" v-model="phoneNumber" maxlength="10" minlength="10" required>
         <input type="email" placeholder="Email Address" v-model="email">
         <div class="error">{{ error }}</div>
-        <button v-if="!isPending">Create</button>
+        <button v-if="!isPending">
+            <font-awesome-icon icon="fa-solid fa-plus" />
+            Create
+        </button>
         <button v-else disabled>Saving...</button>
     </form>
 </template>

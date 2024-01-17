@@ -33,7 +33,7 @@ const routes = [
     component: OrdersView
   },
   {
-    path: '/services',
+    path: '/services/:customerID?',
     name: 'Services',
     component: ServicesView 
   }

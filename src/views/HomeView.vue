@@ -6,6 +6,7 @@
                 <div class="searchBox">
                     <input type="text" name="search" id="search" placeholder="Search for Customer By Phone Number..." maxlength="10" v-model="requiredCustomer"> 
                     <button class="btn" @click="createNewCustomer()">
+                        <font-awesome-icon icon="fa-solid fa-user-plus" />
                         New Customer
                     </button>
                 </div>
