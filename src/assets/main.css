@@ -74,7 +74,7 @@ input, textarea {
     margin: 16px 0;
 }
 .bold {
-    font-weight: 600 !important;
+    font-weight: bold !important;
 }
 .text-center {
     text-align: center !important;

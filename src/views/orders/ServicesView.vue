@@ -4,6 +4,7 @@
         <div v-if="user" >
             <div style="display:flex;justify-content:space-between;">
                 <CreateService />
+                <h2>Customer: {{ selectedCustomer?.name }}</h2>
                 <button class="checkout-button" :class="{ 'pulsate': serviceAddedFlag }" @click="openModal()">
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     Check Out <span style="color:green;font-size:1rem">{{ numberOfServices }}</span>
@@ -57,7 +58,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right">Tax</td>
+                                <td class="text-right bold">Tax</td>
                                 <td>${{ orderTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})  }}</td>
                                 
                             </tr>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import getUser from '@/composables/getUser'
 import getServices from '@/composables/getServices';
 import CreateService from './CreateService.vue';
@@ -120,7 +121,18 @@ export default {
         const orderTotal = ref(0)
         const orderTax = ref(0)
         const isPending = ref(false)
-        const selectedCustomer = ref({})
+
+        const currentCustomer = ref({})
+
+        const selectedCustomer = computed(() => {
+            if (!params.customerID) {
+                return customers.value;
+            }
+            currentCustomer.value =  customers.value?.filter((customer) =>
+                customer.phoneNumber?.includes(params.customerID)
+            )[0];
+            return currentCustomer.value
+        });
 
         const addToCart = (service) => {
             numberOfServices.value += 1
@@ -156,15 +168,12 @@ export default {
             })
 
             // Update last visit date for the customer
-            selectedCustomer.value =  customers.value.filter((customer) =>
-                customer.phoneNumber?.includes(params.customerID)
-            )
             if(selectedCustomer.value){
                 await updateDoc(
-                    selectedCustomer.value[0].id,
+                    selectedCustomer.value.id,
                     {
                         lastVisitDate: timestamp(),
-                        orderCount: selectedCustomer.value[0].orderCount +1
+                        orderCount: selectedCustomer.value.orderCount +1
                     }
                 )
             }
@@ -198,7 +207,8 @@ export default {
             checkout,
             pickupDate,
             orderTotal,
-            orderTax
+            orderTax,
+            selectedCustomer
         } 
     },
 

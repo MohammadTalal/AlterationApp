@@ -6,7 +6,7 @@ const getOrders = (collection, filterOption = null) => {
     const error = ref(null);
 
     // register the firestore collection reference
-    let collectionRef = projectFirestore.collection(collection);
+    let collectionRef = projectFirestore.collection(collection).orderBy("pickupDate");
 
     const unsub = collectionRef.onSnapshot(
         (snap) => {

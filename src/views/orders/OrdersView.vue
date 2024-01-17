@@ -59,11 +59,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-left bold">Tax</td>
-                                <td>${{ orders[selectedOrderIndex].tax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+                                <td class="text-right bold">Tax</td>
+                                <td>
+                                    ${{ orders[selectedOrderIndex].tax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                </td>
                             </tr>
                             
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-right bold">Total</td>
+                                <td class="bold" style="color:green">
+                                    ${{ orders[selectedOrderIndex].orderTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -145,7 +155,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 h1, h2, h3, h4, h5,h6{
 	font-family: 'Montserrat', sans-serif !important;
 }
