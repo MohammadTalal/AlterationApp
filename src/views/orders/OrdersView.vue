@@ -95,8 +95,6 @@ import router from '@/router'
 import { ref, computed } from 'vue'
 import getCollection from '@/composables/getCollection';
 
-
-
 export default {
     name: 'OrdersView',
     setup() {
@@ -119,10 +117,7 @@ export default {
             )[0];
             return currentCustomer.value?.name
         });
-
-
         
-
         const goToServices = async () => {
             router.push({name: 'Services', params: {customerID: params.customerID }})
         }
@@ -148,7 +143,6 @@ export default {
             orderDetails,
             selectedOrderIndex,
             selectedCustomer
-            
         } 
     },
 }

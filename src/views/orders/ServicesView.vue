@@ -174,13 +174,16 @@ export default {
             const maxOrderNumber = orders.value.reduce((maxID, order) => {
                 return order.orderNumber > maxID ? order.orderNumber : maxID;
             }, -1);
+            // Set currect pickup date
+            let originalDate = new Date(pickupDate.value)
+            originalDate.setDate(originalDate.getDate() + 1)
             // Add Order
             await addDoc({
                 customerID: params.customerID,
                 orderDate: timestamp(),
                 orderNumber: maxOrderNumber + 1,
                 orderTotal: orderTotal.value + orderTax.value,
-                pickupDate: new Date(pickupDate.value),
+                pickupDate: originalDate,
                 orderDetails: cartItems.value,
                 tax: orderTax.value
             })
