@@ -35,7 +35,7 @@ const useCollection = (collection) => {
         }
     };
 
-    // update an existing document
+    // delete an existing document
     const deleteDoc = async (id) => {
         error.value = null;
         isPending.value = true;

@@ -1,7 +1,7 @@
 import { ref, watchEffect } from "vue";
 import { projectFirestore } from "../firebase/config";
 
-const getOrders = (collection, filterOption = null) => {
+const getOrders = (collection, filterOption = null, todaysPickup = false ) => {
     const orders = ref(null);
     const error = ref(null);
 
@@ -18,6 +18,12 @@ const getOrders = (collection, filterOption = null) => {
 
             if(filterOption){
                 results = results.filter((o) => o.customerID === filterOption)
+            }
+
+            if(todaysPickup){
+                results = results.filter((o) => 
+                    o.pickupDate.toDate().toLocaleDateString() === (new Date()).toLocaleDateString()
+                )
             }
 
             // update values

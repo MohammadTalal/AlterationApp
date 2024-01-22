@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .navbar {
     padding: 16px 10px;
     margin-bottom: 10px;
@@ -78,5 +78,5 @@ nav img {
 }
 button:hover .fa-right-from-bracket {
     color: white;
-  }
+}
 </style>
