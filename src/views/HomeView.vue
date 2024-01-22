@@ -173,17 +173,6 @@ a {
     text-decoration: underline;
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .modal {
     background: white;
@@ -193,17 +182,6 @@ a {
     display: flex;
     flex-direction: column;
     min-height: 50vh;
-}
-.modal-header {
-    background-color: var(--primary); 
-    padding: 10px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    margin-bottom: 10px;
-    h2 {
-        color: white !important;
-    }
 }
 .modal-footer {
     margin-top: auto;

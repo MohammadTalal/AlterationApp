@@ -73,19 +73,6 @@ export default {
 form {
     background: white;
 }
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .modal {
     background: white;
     padding: 20px;

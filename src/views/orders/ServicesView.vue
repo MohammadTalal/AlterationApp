@@ -46,8 +46,16 @@
         </div>
         <div v-if="isModalOpen" class="modal-overlay">
             <div class="modal">
-                <label for="pickupDate">Choose Pickup Date</label>
-                <input type="date" name="pickupDate" id="pickupDate" v-model="pickupDate">
+                <div class="modal-header">
+                    <h2 class="text-left">
+                        <font-awesome-icon icon="fa-solid fa-cart-shopping" style="color:white;margin-right: 10px;" />
+                        Check Out
+                    </h2>
+                </div>
+                <div style="margin: 0 10px;">
+                    <label for="pickupDate">Choose Pickup Date</label>
+                    <input type="date" name="pickupDate" id="pickupDate" v-model="pickupDate">
+                </div>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -89,7 +97,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button @click="checkout()" :disabled="!pickupDate">
+                    <button @click="checkout()" :disabled="!pickupDate || cartItems.length == 0">
                         <font-awesome-icon icon="fa-sollid fa-sack-dollar" />
                         Place Order
                     </button>
@@ -318,22 +326,9 @@ button.checkout-button.pulsate {
     }
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .modal {
     background: white;
-    padding: 20px;
-    border: 1px solid #ccc;
     width: 30%;
     height: 70vh;
     display: flex;
@@ -343,17 +338,16 @@ button.checkout-button.pulsate {
 .modal-footer {
     margin-top: auto;
 	padding: 0;
-	margin: 0;
+	margin: 10px;
 }
 .close-btn {
     background: rgb(255, 121, 121);
     margin-left: 10px;
 }
 .table-wrapper {
-    width: 100%;
     flex: 1; /* Take up remaining space */
     overflow-y: auto;
-
+    margin: 0 10px;
 }
 label {
     font-size: 0.9em;
