@@ -4,7 +4,7 @@
         <div v-if="user" >
             <div style="display:flex;justify-content:space-between;">
                 <div style="display:flex;">
-                    <CreateService />
+                    <CreateService :disableBtn="editServiceFlag" />
                     
                     <button v-show="!editServiceFlag" style="margin:auto 5px;" @click="editService()">
                         <font-awesome-icon icon="fa-solid fa-pen-to-square" />

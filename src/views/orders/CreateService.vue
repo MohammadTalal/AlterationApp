@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="openModal" style="margin: auto; height: 100%;">
+        <button @click="openModal" style="margin: auto; height: 100%;" :disabled="disableBtn">
             <font-awesome-icon icon="fa-solid fa-shirt" />
             Add New Service
         </button>
@@ -25,6 +25,7 @@ import useCollection from '@/composables/useCollection'
 import getServices from '@/composables/getServices';
 
 export default {
+    props: ['disableBtn'],
     setup(){
         const { error, addDoc } = useCollection('services')
         const { services } = getServices('services')
