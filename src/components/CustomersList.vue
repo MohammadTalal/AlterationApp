@@ -6,7 +6,7 @@
             </div>
             <div class="info">
                 <h3>{{ customer.name }}</h3>
-                <p><span class="bold">Phone Number:</span> {{ customer.phoneNumber }}</p>
+                <p><span class="bold">Phone Number:</span> {{ formattedPhoneNumber(customer.phoneNumber) }}</p>
                 <p><span class="bold">Last Visit:</span> {{ (customer.lastVisitDate.toDate()).toDateString() }}</p>
             </div>
             <div class="order-number">
@@ -18,6 +18,8 @@
 
 <script>
 import router from '@/router'
+
+
 export default {
     props: ['customers'],
     setup() {
@@ -26,7 +28,17 @@ export default {
             router.push({name: 'Orders', params: {customerID: phoneNumber }})
         }
 
-        return { goToOrders }
+        
+        const formattedPhoneNumber = (phNum) => {
+            if (phNum && phNum.length === 10) {
+                // Format the phone number as XXX-XXX-XXXX
+                return phNum.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+            } else {
+                return "Invalid phone number";
+            }
+        }
+
+        return { goToOrders, formattedPhoneNumber }
     }  
 }
 </script>
