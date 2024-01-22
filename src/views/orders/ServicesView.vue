@@ -3,15 +3,26 @@
         <div v-if="error" class="error">Could not fetch the data</div>
         <div v-if="user" >
             <div style="display:flex;justify-content:space-between;">
-                <CreateService />
+                <div style="display:flex;">
+                    <CreateService />
+                    
+                    <button v-show="!editServiceFlag" style="margin:auto 5px;" @click="editService()">
+                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                    </button>
+                    
+                    <button v-show="editServiceFlag" style="margin:auto 5px;background-color:#f44336;" @click="stopEditService()">
+                        <font-awesome-icon icon="fa-solid fa-stop" />
+                    </button>
+                </div>
+                
                 <h2>Customer: {{ selectedCustomer?.name }}</h2>
-                <button class="checkout-button" :class="{ 'pulsate': serviceAddedFlag }" @click="openModal()">
+                <button class="checkout-button" :class="{ 'pulsate': serviceAddedFlag }" :disabled="editServiceFlag" @click="openModal()">
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     Check Out <span style="color:green;font-size:1rem">{{ numberOfServices }}</span>
                 </button>
             </div>
             <div class="wrapper"> 
-                <div class="single" v-for="(service, index) in services" :key="index" >
+                <div class="single" v-for="(service, index) in services" :key="index" :class="{ 'pulse': editServiceFlag }" >
                     <div class="info">
                         {{ service.serviceName }}
                     </div>
@@ -19,8 +30,11 @@
                         <div class="price">
                             ${{ Number(service.servicePrice).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
                         </div>
-                        <button @click="addToCart(service)">
+                        <button @click="addToCart(service)" v-show="!editServiceFlag">
                             <font-awesome-icon icon="plus" />
+                        </button>
+                        <button @click="deleteService(service)" style="margin-left:5px;" v-show="editServiceFlag" >
+                            <font-awesome-icon icon="fa-solid fa-trash" />
                         </button>
                     </div>
                 </div>
@@ -110,6 +124,7 @@ export default {
         const { documents: customers } = getCollection('customers')
         const { addDoc } = useCollection('orders')
         const { updateDoc } = useCollection('customers')
+        const { deleteDoc } = useCollection('services')
         const { orders } = getOrders('orders')
         const { user } = getUser()
         const { params } = useRoute();
@@ -121,6 +136,7 @@ export default {
         const orderTotal = ref(0)
         const orderTax = ref(0)
         const isPending = ref(false)
+        const editServiceFlag = ref(false)
 
         const currentCustomer = ref({})
 
@@ -193,6 +209,18 @@ export default {
             isModalOpen.value = false
         }
 
+        const editService = () => {
+            editServiceFlag.value = true
+        }
+
+        const stopEditService = () => {
+            editServiceFlag.value = false
+        }
+
+        const deleteService = async (service) => {
+            await deleteDoc(service.id)
+        }
+
         return { 
             error, 
             user, 
@@ -209,7 +237,11 @@ export default {
             pickupDate,
             orderTotal,
             orderTax,
-            selectedCustomer
+            selectedCustomer,
+            editServiceFlag,
+            editService,
+            stopEditService,
+            deleteService
         } 
     },
 
@@ -235,6 +267,18 @@ export default {
     transition: all ease 0.2s;
     margin-top: 10px;
 }
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+.single.pulse {
+    animation: pulse 1s ease-in-out infinite;
+}
+
 .price {
     font-weight: bold !important;
     padding-right: 25px;

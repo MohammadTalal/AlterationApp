@@ -9,6 +9,10 @@
                         <font-awesome-icon icon="fa-solid fa-user-plus" />
                         New Customer
                     </button>
+                    <button class="btn" style="margin-left:5px;">
+                        <font-awesome-icon icon="fa-solid fa-calendar-day" />
+                        Today's Orders
+                    </button>
                 </div>
             </div>
             <CustomerList :customers="documents"/>
@@ -64,7 +68,7 @@ export default {
 .btn {
     width: 15%;
     height: 40px;
-    margin: 5px 10px;
+    margin: 5px;
 }
 .backgroundGreen {
     background: green;
@@ -87,7 +91,7 @@ export default {
     height: 50px;
     margin: 0 !important;
     border-radius: 5px !important;
-    width: 85%;
+    width: 70%;
 }
 a {
     text-decoration: underline;

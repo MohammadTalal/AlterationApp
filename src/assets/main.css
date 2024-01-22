@@ -102,3 +102,6 @@ input, textarea {
     border-radius: 100vw;
     margin-block: 0.5em;
 }
+.fa-solid:hover {
+    color: white !important;
+}

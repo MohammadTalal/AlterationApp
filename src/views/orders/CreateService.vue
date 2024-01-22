@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="openModal" >
+        <button @click="openModal" style="margin: auto; height: 100%;">
             <font-awesome-icon icon="fa-solid fa-shirt" />
             Add New Service
         </button>
