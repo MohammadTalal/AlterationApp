@@ -173,7 +173,6 @@ a {
     text-decoration: underline;
 }
 
-
 .modal {
     background: white;
     padding: 0;
@@ -182,6 +181,11 @@ a {
     display: flex;
     flex-direction: column;
     min-height: 50vh;
+}
+.modal-header {
+    h2 {
+        color: white !important;
+    }
 }
 .modal-footer {
     margin-top: auto;

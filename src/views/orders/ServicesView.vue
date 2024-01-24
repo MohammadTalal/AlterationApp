@@ -340,6 +340,11 @@ button.checkout-button.pulsate {
 	padding: 0;
 	margin: 10px;
 }
+.modal-header {
+    h2 {
+        color: white !important;
+    }
+}
 .close-btn {
     background: rgb(255, 121, 121);
     margin-left: 10px;

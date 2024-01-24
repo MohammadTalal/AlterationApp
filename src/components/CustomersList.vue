@@ -27,7 +27,6 @@ export default {
         const goToOrders = async (phoneNumber) => {
             router.push({name: 'Orders', params: {customerID: phoneNumber }})
         }
-
         
         const formattedPhoneNumber = (phNum) => {
             if (phNum && phNum.length === 10) {
