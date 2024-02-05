@@ -38,8 +38,9 @@
                     <table v-if="orders.length > 0">
                         <thead>
                             <tr>
-                                <th class="text-left" style="width:35%;">Customer</th>
-                                <th style="width:30%;">Drop-off Date</th>
+                                <th class="text-left" style="width:20%;">Customer Name</th>
+                                <th style="width: 20%;">Phone Number</th>
+                                <th style="width:25%;">Drop-off Date</th>
                                 <th style="width:20%;">Order Total</th>
                                 <th style="width:15%;">Completed?</th>
                             </tr>
@@ -47,7 +48,10 @@
                         <tbody>
                             <tr v-for="(order, index) in orders" :key="index">
                                 <td class="text-left">
-                                    {{ getCustomerName(order.customerID)}}
+                                    {{ getCustomer(order.customerID).name }}
+                                </td>
+                                <td>
+                                    {{ formattedPhoneNumber(getCustomer(order.customerID).phoneNumber) }}
                                 </td>
                                 <td>
                                     {{ order.orderDate.toDate().toDateString()  }}
@@ -116,10 +120,19 @@ export default {
         const closeTodayOrdersModal = () => {
             todayOrdersModal.value = false
         }
-        const getCustomerName = (custID) => {
+        const getCustomer = (custID) => {
             return documents.value.find((customer) =>
                 customer.phoneNumber == custID 
-            )?.name; 
+            ); 
+        }
+
+        const formattedPhoneNumber = (phNum) => {
+            if (phNum && phNum.length === 10) {
+                // Format the phone number as XXX-XXX-XXXX
+                return phNum.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+            } else {
+                return "Invalid phone number";
+            }
         }
 
         return { 
@@ -132,7 +145,8 @@ export default {
             closeTodayOrdersModal,
             todayOrdersModal,
             orders,
-            getCustomerName
+            getCustomer,
+            formattedPhoneNumber
         } 
     },
 }
@@ -176,7 +190,7 @@ a {
 .modal {
     background: white;
     padding: 0;
-    width: 40vw;
+    width: 55vw;
     height: 60vh;
     display: flex;
     flex-direction: column;
